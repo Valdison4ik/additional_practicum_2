@@ -16,6 +16,7 @@ def make_spaces_with_underscores(modeladmin, request, queryset):
     for obj in queryset:
         if obj.name:
             obj.name = obj.name.replace(' ', '_')
+            obj.description = obj.description.replace(' ', '_')
             obj.save()
 
 

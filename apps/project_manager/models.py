@@ -144,7 +144,8 @@ class Task(TimeStampModel3):
     – закреплённому за задачей сотруднику;
     3. Добавьте настройку уникальности задачи по её названию и проекту. Это должна быть одна общая категория.
     """
-    name = models.CharField(unique=True, max_length=100, validators=[MinLengthValidator(10)],
+    name = models.CharField(unique=True, max_length=100,
+                            validators=[MinLengthValidator(10, message="Минимальная длина названия - 10 символов.")],
                             verbose_name="Название задачи")
     description = models.TextField(blank=True, null=True, verbose_name="Описание задачи")
     status = models.CharField(default='new', max_length=15,
