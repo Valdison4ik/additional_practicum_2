@@ -16,9 +16,86 @@ def make_spaces_with_underscores(modeladmin, request, queryset):
     for obj in queryset:
         if obj.name:
             obj.name = obj.name.replace(' ', '_')
-            obj.description = obj.description.replace(' ', '_')
+            # obj.description = obj.description.replace(' ', '_')
             obj.save()
 
+
+@admin.action(description="Установить статус Выполнено")
+def make_status_done(modeladmin, request, queryset):
+    """
+    Задача 14 Additional practicum 2: Django.
+    Добавьте возможность обновления статуса всех выделенных задач на «Закрыто». Для этого выполните действия:
+    1. Создайте Админ-действие, которое позволит к выделенным объектам задач применять операцию
+    по обновлению статуса на какой-то определённый («Выполнено»).
+    2. Задайте этому действию укороченное название.
+    """
+    for obj in queryset:
+        obj.status = 'done'
+        obj.save()
+
+
+@admin.action(description="Установить приоритет Низкий")
+def make_priority_low(modeladmin, request, queryset):
+    """
+    Задача 15 Additional practicum 2: Django.
+    Добавьте возможность обновления приоритетности всех выделенных задач на
+    «Низкий», «Средний», «Высокий» и на «Очень высокий». Для этого выполните действия:
+    1. Создайте разные Админ-действия, которые позволят к выделенным объектам задач применять операцию
+    по обновлению приоритетности на:
+    * Отдельно на «Низкий»
+    2. Задайте этим действиям укороченное название.
+    """
+    for obj in queryset:
+        obj.priority = 'low'
+        obj.save()
+
+
+@admin.action(description="Установить приоритет Средний")
+def make_priority_middle(modeladmin, request, queryset):
+    """
+    Задача 15 Additional practicum 2: Django.
+    Добавьте возможность обновления приоритетности всех выделенных задач на
+    «Низкий», «Средний», «Высокий» и на «Очень высокий». Для этого выполните действия:
+    1. Создайте разные Админ-действия, которые позволят к выделенным объектам задач применять операцию
+    по обновлению приоритетности на:
+    * Отдельно на «Средний»
+    2. Задайте этим действиям укороченное название.
+    """
+    for obj in queryset:
+        obj.priority = 'middle'
+        obj.save()
+
+
+@admin.action(description="Установить приоритет Высокий")
+def make_priority_high(modeladmin, request, queryset):
+    """
+    Задача 15 Additional practicum 2: Django.
+    Добавьте возможность обновления приоритетности всех выделенных задач на
+    «Низкий», «Средний», «Высокий» и на «Очень высокий». Для этого выполните действия:
+    1. Создайте разные Админ-действия, которые позволят к выделенным объектам задач применять операцию
+    по обновлению приоритетности на:
+    * Отдельно на «Высокий»
+    2. Задайте этим действиям укороченное название.
+    """
+    for obj in queryset:
+        obj.priority = 'high'
+        obj.save()
+
+
+@admin.action(description="Установить приоритет Очень высокий")
+def make_priority_highest(modeladmin, request, queryset):
+    """
+    Задача 15 Additional practicum 2: Django.
+    Добавьте возможность обновления приоритетности всех выделенных задач на
+    «Низкий», «Средний», «Высокий» и на «Очень высокий». Для этого выполните действия:
+    1. Создайте разные Админ-действия, которые позволят к выделенным объектам задач применять операцию
+    по обновлению приоритетности на:
+    * Отдельно на «Очень высокий»
+    2. Задайте этим действиям укороченное название.
+    """
+    for obj in queryset:
+        obj.priority = 'highest'
+        obj.save()
 
 # Register your models here.
 @admin.register(Task)
@@ -47,10 +124,24 @@ class TaskAdmin(admin.ModelAdmin):
     Добавьте нового пользователя и задачи для него. Для этого выполните действия:
     2. Добавьте assignee в список отображаемых полей в Административной панели.
     3. Добавьте в Административную панель возможность фильтрации задач по конкретному assignee.
+
+    Задача 14 Additional practicum 2: Django.
+    Добавьте возможность обновления статуса всех выделенных задач на «Закрыто». Для этого выполните действия:
+    3. Зарегистрируйте это действие для модели Task в Админ панели.
+
+    Задача 15 Additional practicum 2: Django.
+    Добавьте возможность обновления приоритетности всех выделенных задач на
+    «Низкий», «Средний», «Высокий» и на «Очень высокий». Для этого выполните действия:
+    3. Зарегистрируйте все эти действия для модели Task в Админ панели.
     """
     list_display = ('name', 'project', 'status', 'priority', 'assignee', 'created_at', 'due_date')
     search_fields = ('name',)
     list_filter = ('project', 'status', 'priority', 'assignee', 'created_at', 'due_date')
+    actions = [make_status_done,
+               make_priority_low,
+               make_priority_middle,
+               make_priority_high,
+               make_priority_highest]
 
 
 @admin.register(Project)
