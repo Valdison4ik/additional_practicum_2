@@ -40,7 +40,7 @@ class ProjectFile(TimeStampModel1):
     (от самого последнего созданного файла к самому первому созданному).
     """
     name = models.CharField(max_length=120, blank=False, verbose_name="Имя файла")
-    data_file = models.FileField(upload_to='media/', blank=False, verbose_name="Файл")
+    data_file = models.FileField(blank=False, verbose_name="Файл") # upload_to=''
 
     class Meta:
         ordering = ['-created_at']
