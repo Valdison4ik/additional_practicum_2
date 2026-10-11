@@ -1,6 +1,7 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class TimeStampModel1(models.Model):
@@ -41,6 +42,7 @@ class ProjectFile(TimeStampModel1):
     """
     name = models.CharField(max_length=120, blank=False, verbose_name="Имя файла")
     data_file = models.FileField(blank=False, verbose_name="Файл") # upload_to=''
+    # file_path
 
     class Meta:
         ordering = ['-created_at']
@@ -79,7 +81,7 @@ class Project(TimeStampModel1):
 
     name = models.CharField(unique=True, max_length=100, verbose_name="Название проекта")
     description = models.TextField(blank=False, null=False, verbose_name="Описание проекта")
-    project_files = models.ManyToManyField(ProjectFile, blank=True, related_name='files', verbose_name="Файлы проекта")
+    project_files = models.ManyToManyField(ProjectFile, blank=True, related_name='projects', verbose_name="Файлы проекта")
 
     def __str__(self):
         return self.name
@@ -155,7 +157,7 @@ class Task(TimeStampModel3):
                                                         ('highest', 'Highest')], verbose_name="Приоритет задачи")
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='tasks', verbose_name="Проект")
     due_date = models.DateField(blank=True, null=True, verbose_name="Выполнить до")
-    assignee = models.OneToOneField(User, on_delete=models.SET_NULL, blank=True, null=True, related_name='tasks',
+    assignee = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True, related_name='tasks',
                                     verbose_name="Исполнитель")
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Теги")
 
