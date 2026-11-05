@@ -1,5 +1,4 @@
 import os
-from tokenize import group
 
 import django
 

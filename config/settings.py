@@ -42,8 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.project_manager.apps.ProjectManagerConfig'
+    'rest_framework',
+    'django_filters',
+    'apps.tasks.apps.TasksConfig',
+    'apps.projects.apps.ProjectsConfig',
+    'apps.base.apps.BaseConfig'
 ]
+
+# Глобальная пагинация
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # Класс пагинации по умолчанию
+    'PAGE_SIZE': 5,  # Количество элементов на одной странице
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +92,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite31',
     }
 }
 
