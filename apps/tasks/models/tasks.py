@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
-from django.conf import settings
+# from django.conf import settings
+from config import settings
 from apps.base.models import TimeStampModel3
 from apps.projects.models import Project
 from apps.tasks.models.tags import Tag

@@ -25,10 +25,12 @@ from django.conf.urls.static import static
 #                                    create_tag, delete_required_tag)
 from apps.tasks.views import TaskListCreateViewSet, TaskDetailViewSet, TaskViewSet
 from apps.projects.views import ProjectFileViewSet
+from apps.users.views import UserViewSet
 
 router = DefaultRouter()
 router.register('tasks', TaskViewSet, basename='tasks')
 router.register('project-files', ProjectFileViewSet, basename='project_files')
+router.register('users', UserViewSet, basename='users')
 
 
 urlpatterns = [

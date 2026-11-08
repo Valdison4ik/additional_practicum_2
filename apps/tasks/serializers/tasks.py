@@ -11,6 +11,7 @@ from apps.tasks.models import Task, Tag
 from apps.tasks.serializers.tags import AllTagsSerializer, TagsSerializer
 from apps.projects.serializers import AllProjectsSerializer, ProjectShortInfoSerializer
 from apps.projects.models import Project
+from apps.users.models import User
 
 
 class AllTasksSerializer(ModelSerializer):
@@ -39,12 +40,15 @@ class TaskInfoSerializer(ModelSerializer):
 
 class CreateUpdateTaskSerializer(ModelSerializer):
     # tags = TagsSerializer(many=True)
+    project = SlugRelatedField(slug_field='name'
+                               , queryset=Project.objects.all())
     tags = SlugRelatedField(many=True
                             , slug_field='name'
                             , queryset=Tag.objects.all())
-
-    project = SlugRelatedField(slug_field='name'
-                               , queryset=Project.objects.all())
+    assignee = SlugRelatedField(slug_field='email'
+                                , queryset=User.objects.all()
+                                , required=False
+                                , allow_null=True)
     due_date = DateField(default=timezone.now().date(), input_formats=['%Y-%m-%d', 'ISO-8601'], allow_null=True)
 
     class Meta:

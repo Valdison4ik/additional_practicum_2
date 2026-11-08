@@ -46,8 +46,12 @@ INSTALLED_APPS = [
     'django_filters',
     'apps.tasks.apps.TasksConfig',
     'apps.projects.apps.ProjectsConfig',
-    'apps.base.apps.BaseConfig'
+    'apps.base.apps.BaseConfig',
+    'apps.users.apps.UsersConfig'
 ]
+
+AUTH_USER_MODEL = 'users.User'
+
 
 # Глобальная пагинация
 REST_FRAMEWORK = {
@@ -92,7 +96,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite31',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
